@@ -23,7 +23,6 @@ data.isna().sum()
 # checando si hay duplicados (no hay)
 duplicates = data[data.duplicated()]
 
-
 # Selección de las columnas relevantes para el clustering
 X = data[['Latitude', 'Longitude']]
 
