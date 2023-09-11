@@ -12,6 +12,7 @@ Además contiene el archivo ***K-means.py*** donde se encuentra el código del m
 
 
 - De no ser así corra en su terminal el siguiente comando:
+  
   `pip install pandas numpy matplotlib scikit-learn yellowbrick`
 
 - Además deberá asegurarse de tener el archivo .csv en la misma carpeta que el código .py
