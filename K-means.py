@@ -44,7 +44,7 @@ train_data, validation_data = train_test_split(train_data, test_size=0.25,
 
 # El código KMeans inicializa el modelo con 7 clústeres
 # y None en random_state para generalizar.
-kmeans = KMeans(n_clusters=7, random_state=None)
+kmeans = KMeans(n_clusters=7, random_state=None, algorithm="elkan")
 kmeans.fit(train_data)
 
 print()
@@ -69,10 +69,11 @@ print("  ", kmeans.labels_, "\n")
 
 # ------------------- CODO -------------------
 kmeans_kwargs = {
-    "init": "random",
+    "init": "k-means++",
     "n_init": 10,
     "max_iter": 300,
     "random_state": None,
+    "algorithm": "elkan"
 }
 # La lista tiene los valores de Sum of Squared Errors para cada k
 sse = []
@@ -133,7 +134,7 @@ plt.show()
 # genera están bien separados.
 
 # Entrena el modelo final
-final_kmeans = KMeans(n_clusters=7, random_state=None)
+final_kmeans = KMeans(n_clusters=7, random_state=None, algorithm="elkan")
 # Entrenar el modelo en los conjuntos de entrenamiento y validación
 combined_train_data = np.vstack((train_data, validation_data))
 
@@ -180,18 +181,18 @@ plt.show()
 print("Decidí usar 7 clusters y centroides porque a pesar de que el método del\
 \ncodo dijera que era mejor usar 2, el Score de Silhoutte indica que 7\
 \nes buena opción, también estuve probando con diferentes valores y al\
-\nvisualizarlo vi que con 7 quedaba bien separado. Para el parámetro init\
+\nvisualizarlo vi que con 7 quedaba bien separado. En el parámetro de\
+\nalgorithm usé elkan ya que ese algoritmo es más eficiente con datasets\
+\nque tienen bien definidos los clusters. Para el parámetro init\
 \ndeje el default que es k-means++ porque selecciona el centroide inicial\
 \nde manera que optimiza el llegar a una solución de agrupación de calidad.\
 \nDeje n_init en su default que es 10 ya que es el número de veces\
-\nque el algorimto de K-means será ejecutado con\
-\ndiferentes semillas de centroides y es recomendable un número alto El\
+\nque el algorimto de K-means será ejecutado con diferentes\
+\nsemillas de centroides y es recomendable un número alto El\
 \nmax_iter lo deje en default que es 300. El paráetron de tol lo deje en 1e-4\
 \nporque controla cuando se considera que el algoritmo ha llegado a una\
 \nsolición y se detiene y si es un número muy pequeño entonces será más\
 \npreciso. En random_state puse None para que la inicialización de los\
-\ncentroides sea aleatoria en cada ejecución. En el parámetro de algorithm\
-\ndeje el default que es lloyd ya que es el algoritmo clásico de K-means\
-\nestilo EM que nos explicaron en clase.")
+\ncentroides sea aleatoria en cada ejecución.")
 
 print()
