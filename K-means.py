@@ -9,6 +9,7 @@ from sklearn.decomposition import PCA
 from yellowbrick.cluster import SilhouetteVisualizer
 from sklearn.metrics import silhouette_score
 from sklearn.model_selection import train_test_split
+from matplotlib_venn import venn3
 
 warnings.filterwarnings('ignore')
 
@@ -41,9 +42,17 @@ train_data, test_data = train_test_split(X_scaled, test_size=0.2,
 train_data, validation_data = train_test_split(train_data, test_size=0.25,
                                                random_state=None)
 
+plt.figure(figsize=(8, 6))
+venn_diagram = venn3(subsets=(len(train_data), len(test_data), 0,
+                              len(train_data) - len(test_data), len(test_data), 0, 0),
+                     set_labels=('Entrenamiento', 'Prueba', 'Validación'))
+plt.title(
+    'División de Datos entre Conjuntos de Entrenamiento, Prueba y Validación')
+plt.show()
+
 # El código KMeans inicializa el modelo con 7 clústeres
 # y None en random_state para generalizar.
-kmeans = KMeans(n_clusters=7, random_state=None, algorithm="elkan")
+kmeans = KMeans(n_clusters=7, random_state=None)
 kmeans.fit(train_data)
 
 print()
@@ -71,8 +80,7 @@ kmeans_kwargs = {
     "init": "k-means++",
     "n_init": 10,
     "max_iter": 300,
-    "random_state": None,
-    "algorithm": "elkan"
+    "random_state": None
 }
 # La lista tiene los valores de Sum of Squared Errors para cada k
 sse = []
@@ -133,7 +141,7 @@ plt.show()
 # genera están bien separados.
 
 # Entrena el modelo final
-final_kmeans = KMeans(n_clusters=7, random_state=None, algorithm="elkan")
+final_kmeans = KMeans(n_clusters=7, random_state=None)
 # Entrenar el modelo en los conjuntos de entrenamiento y validación
 combined_train_data = np.vstack((train_data, validation_data))
 
