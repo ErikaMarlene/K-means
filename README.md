@@ -9,10 +9,11 @@ Además contiene el archivo ***K-means.py*** donde se encuentra el código del m
   - matplotlib
   - scikit-learn
   - yellowbrick
+  - matplotlib_venn
 
 
 - De no ser así corra en su terminal el siguiente comando:
   
-  `pip install pandas numpy matplotlib scikit-learn yellowbrick`
+  `pip install pandas numpy matplotlib scikit-learn yellowbrick matplotlib-venn`
 
 - Además deberá asegurarse de tener el archivo .csv en la misma carpeta que el código .py
